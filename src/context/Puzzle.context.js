@@ -23,8 +23,6 @@ const Provider = ({ children }) => {
 
     const reset = () => {
         setTowers([[],[],[]]);
-        setDisks(0);
-        setDisksUI([]);
     }
 
     const moveDisk = (from, to) => {

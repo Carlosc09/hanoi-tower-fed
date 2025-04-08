@@ -9,12 +9,13 @@ const Tower = ({id, disksUI}) => {
     );
 
     const handleDrop = (event) => {
-
+        event.preventDefault();
+        const data = event.dataTransfer.getData("text");
+        event.target.prepend(document.getElementById(data));
     }
 
     const handleDragOver = (event) => {
         event.preventDefault();
-        //moveDisk(event.id, id);
     }
 
     return (
