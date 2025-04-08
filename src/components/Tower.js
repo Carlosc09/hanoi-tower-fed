@@ -1,11 +1,11 @@
 import Disk from './Disk';
 import useTowerContext from '../hooks/use-puzzle-context';
 
-const Tower = ({id, diskUI}) => {
+const Tower = ({id, disksUI}) => {
     const { disks } = useTowerContext();
 
-    const towerDisks = diskUI.map((disk) =>
-        <Disk key={disk.key} diskUi={disk} />
+    const towerDisks = disksUI.map((disk) =>
+        <Disk key={disk.key} disksUI={disk} />
     );
 
     const handleDrop = (event) => {

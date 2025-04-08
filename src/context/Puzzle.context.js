@@ -10,14 +10,15 @@ const Provider = ({ children }) => {
 
     const setTowerAndDisks = (diskCount) => {
         diskCount = parseInt(diskCount);
-        setDisksUI(generateRandomDisks(diskCount));
+        const randomDisks = generateRandomDisks(diskCount);
+        setDisks(diskCount);
+        setDisksUI(randomDisks);
         const newTowers = [
-            disksUI,
+            randomDisks,
             [],
             []
         ];
         setTowers(newTowers);
-        setDisks(diskCount);
     };
 
     const reset = () => {
