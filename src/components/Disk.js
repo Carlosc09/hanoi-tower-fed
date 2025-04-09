@@ -1,8 +1,9 @@
 
 const Disks = ({ disksUI }) => {
     const handleDragStart = (event) => {
-        console.log('dragging', event.target.id, event);
+        console.log('Dragging', event.target.id);
         event.dataTransfer.setData("text", event.target.id);
+        event.dataTransfer.setData("parent", disksUI.parent);
     }
 
     return (

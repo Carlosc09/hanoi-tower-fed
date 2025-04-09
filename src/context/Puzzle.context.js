@@ -23,21 +23,52 @@ const Provider = ({ children }) => {
 
     const reset = () => {
         setTowers([[],[],[]]);
+        setDisks(0);
+        setDisksUI([]);
+    }
+
+    const updateDisksUI = (disk, parent) => {
+        const newDisksUI = disksUI.map((d) => {
+            if(d.id === disk.id) {
+                return {
+                    ...d,
+                    parent: parent
+                };
+            }
+            return d;
+        });
+        setDisksUI(newDisksUI);
+    }
+
+    const findDiskInTower = (diskId) => {
+        for(let i = 0; i < towers.length; i++) {
+            const disk = towers[i].find((d) => d.id === diskId);
+            if(disk) {
+                return i;
+            }
+        }
+        return null;
     }
 
     const moveDisk = (from, to) => {
+        const newTowers = [...towers];
+        const disk = newTowers[from].shift();
+        newTowers[to]?.push(disk);
+        setTowers(newTowers);
+        // updateDisksUI(disk, to);
+
+        return true;
     };
 
-    const dragStart = (event) => {
-        event.dataTransfer.setData("disk", event.target.id);
-    };
-
-    const validateMove = (disk, from, to) => {
-        if(disk < to.at(-1)) {
-            return true;
+    const validateMove = (diskId, to) => {
+        let disk = disksUI[diskId];
+        const from = findDiskInTower(diskId);
+        console.log(`Validating move Disk ${disk} from ${from} to ${to}`);
+        if(towers[to]?.at(-1)?.num < disk?.num) {
+            console.log('Invalid move!');
+            return false;
         }
-
-        return false;
+        return moveDisk(from, to);
     };
 
     const publicValues = {
@@ -47,8 +78,7 @@ const Provider = ({ children }) => {
         moveDisk,
         reset,
         setTowerAndDisks,
-        validateMove,
-        dragStart
+        validateMove
     };
 
     return (
