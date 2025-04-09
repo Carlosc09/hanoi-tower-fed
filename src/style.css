@@ -33,6 +33,7 @@ code {
 }
 
 .tower {
+    user-select: none;
     position: relative;
     width: 300px;
     height: 300px;
@@ -43,6 +44,7 @@ code {
 }
 
 .tower__base {
+    user-select: none;
     position: absolute;
     width: 20px;
     height: 300px;
@@ -52,6 +54,7 @@ code {
 }
 
 .tower__disks {
+    user-select: none;
     display: flex;
     height: 100%;
     flex-direction: column;
@@ -61,6 +64,7 @@ code {
 }
 
 .tower__disks .disk {
+    user-select: none;
     font-weight: 600;
     z-index: 30;
     color: black;

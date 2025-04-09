@@ -1,7 +1,6 @@
 
-const Disks = ({ disksUI }) => {
+const Disks = ({ disksUI, draggable }) => {
     const handleDragStart = (event) => {
-        console.log('Dragging', event.target.id);
         event.dataTransfer.setData("text", event.target.id);
         event.dataTransfer.setData("parent", disksUI.parent);
     }
@@ -12,7 +11,7 @@ const Disks = ({ disksUI }) => {
             backgroundColor: disksUI.color,
             width: `${disksUI.size}px`,
         }}
-        id={disksUI.id} className="disk" onDragStart={handleDragStart} draggable="true">{disksUI.num}</div>
+        id={disksUI.id} className="disk" onDragStart={handleDragStart} draggable={draggable}>{disksUI.num}</div>
     );
 }
 

@@ -7,6 +7,8 @@ const Provider = ({ children }) => {
     const [towers, setTowers] = useState([[],[],[]]);
     const [disks, setDisks] = useState(0);
     const [disksUI, setDisksUI] = useState([]);
+    const [moves, setMoves] = useState(0);
+    const [winner, setWinner] = useState(false);
 
     const setTowerAndDisks = (diskCount) => {
         diskCount = parseInt(diskCount);
@@ -14,35 +16,26 @@ const Provider = ({ children }) => {
         setDisks(diskCount);
         setDisksUI(randomDisks);
         const newTowers = [
-            randomDisks,
+            [...randomDisks],
             [],
             []
         ];
         setTowers(newTowers);
+        setMoves(0);
+        setWinner(false);
     };
 
     const reset = () => {
         setTowers([[],[],[]]);
         setDisks(0);
         setDisksUI([]);
-    }
-
-    const updateDisksUI = (disk, parent) => {
-        const newDisksUI = disksUI.map((d) => {
-            if(d.id === disk.id) {
-                return {
-                    ...d,
-                    parent: parent
-                };
-            }
-            return d;
-        });
-        setDisksUI(newDisksUI);
+        setMoves(0);
+        setWinner(false);
     }
 
     const findDiskInTower = (diskId) => {
         for(let i = 0; i < towers.length; i++) {
-            const disk = towers[i].find((d) => d.id === diskId);
+            const disk = towers[i]?.find((d) => d.id === diskId);
             if(disk) {
                 return i;
             }
@@ -50,35 +43,46 @@ const Provider = ({ children }) => {
         return null;
     }
 
+    const validatePuzzleDone = () => {
+        for(let i = 1; i < towers.length; i++) {
+            if(towers[i].length === disks) {
+                setWinner(true);
+                return true;
+            }
+        }
+        return false;
+    }
+
     const moveDisk = (from, to) => {
         const newTowers = [...towers];
         const disk = newTowers[from].shift();
-        newTowers[to]?.push(disk);
+        newTowers[to]?.unshift(disk);
         setTowers(newTowers);
-        // updateDisksUI(disk, to);
-
+        setMoves(moves + 1);
         return true;
     };
 
     const validateMove = (diskId, to) => {
         let disk = disksUI[diskId];
         const from = findDiskInTower(diskId);
-        console.log(`Validating move Disk ${disk} from ${from} to ${to}`);
-        if(towers[to]?.at(-1)?.num < disk?.num) {
-            console.log('Invalid move!');
-            return false;
+        if(towers[to].length === 0) {
+            return moveDisk(from, to);
+        } else if(towers[to]?.at(-1)?.num > disk?.num) {
+            return moveDisk(from, to);
         }
-        return moveDisk(from, to);
+        return false;
     };
 
     const publicValues = {
         disks,
         towers,
         disksUI,
-        moveDisk,
+        moves,
+        winner,
         reset,
         setTowerAndDisks,
-        validateMove
+        validateMove,
+        validatePuzzleDone
     };
 
     return (

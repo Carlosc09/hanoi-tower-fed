@@ -3,11 +3,16 @@ import Disk from './Disk';
 import useTowerContext from '../hooks/use-puzzle-context';
 
 const Tower = ({id, disksUI}) => {
-    const { disks, validateMove, moveDisk } = useTowerContext();
+    const { winner, disks, moves, validateMove, validatePuzzleDone } = useTowerContext();
 
-    const towerDisks = disksUI.map((disk) =>
-        <Disk tower={id} key={disk.key} disksUI={disk} />
-    );
+    const towerDisks = disksUI.map((disk, index) => {
+        let draggable = false
+        if(index === 0 && !winner){
+            draggable = true;
+        }
+
+        return <Disk draggable={draggable} key={disk.id} disksUI={disk} />
+    });
 
     const handleDrop = (event) => {
         event.preventDefault();
@@ -15,10 +20,16 @@ const Tower = ({id, disksUI}) => {
         const targetTower = event.target.id;
         if(!validateMove(+ diskId, + targetTower)) {
             toast.error('No disk may be placed on top of a disk that is smaller than it', {
-                position: 'top-center',
+                position: 'bottom-center',
                 autoClose: 2000,
             });
             return;
+        }
+        if(validatePuzzleDone()) {
+            toast.success(`Excellent, Puzzle solved in ${moves + 1}!`, {
+                position: 'bottom-center',
+                autoClose: 2000,
+            });
         }
     }
 

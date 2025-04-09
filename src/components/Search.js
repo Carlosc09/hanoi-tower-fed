@@ -38,7 +38,7 @@ const Search = () => {
                     <form onSubmit={handleSubmit}>
                         <div className="field has-addons">
                             <div className="control">
-                                <input className="input" max="15" type="number" onChange={handleChange} value={disks} placeholder="Number of disks" />
+                                <input className="input" max="20" type="number" onChange={handleChange} value={disks} placeholder="Number of disks" />
                             </div>
                             <div className="control">
                                 <button className="button is-info">Generate Puzzle</button>
