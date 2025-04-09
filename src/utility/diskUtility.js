@@ -9,11 +9,12 @@ const generateRandomDisks = (disks) => {
     const randomDisk = [];
     for (let i = 0; i < disks; i++) {
         randomDisk.push({
-            id: i ,
+            id: i,
             num:  i + 1,
             size:  i * 12 + 30,
             color: getRandomRGBColor(),
-            key: i
+            key: i,
+
         });
     }
     return randomDisk;

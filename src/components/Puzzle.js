@@ -21,7 +21,7 @@ const Puzzle = () => {
                     <div className="column is-4">
                         <div className="box">
                             <div className="block">
-                                <Tower key="A" id="A" disksUI={towers[0]} />
+                                <Tower id="0" disksUI={towers[0]} />
                             </div>
                             <div >A</div>
                         </div>
@@ -29,7 +29,7 @@ const Puzzle = () => {
                     <div className="column is-4">
                         <div className="box">
                             <div className="block">
-                                <Tower key="B" id="B" disksUI={towers[1]} />
+                                <Tower id="1" disksUI={towers[1]} />
                             </div>
                             <div>B</div>
                         </div>
@@ -37,7 +37,7 @@ const Puzzle = () => {
                     <div className="column is-4">
                         <div className="box">
                             <div className="block">
-                                <Tower key="C" id="C" disksUI={towers[2]} />
+                                <Tower id="2" disksUI={towers[2]} />
                             </div>
                             <div>C</div>
                         </div>

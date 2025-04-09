@@ -1,15 +1,10 @@
-import useTowerContext from "../hooks/use-puzzle-context";
 
-const Disks = ({ index, disksUI }) => {
+const Disks = ({ disksUI }) => {
     const handleDragStart = (event) => {
-        event.preventDefault();
-        console.log('dragging', event.target.id);
+        console.log('Dragging', event.target.id);
+        event.dataTransfer.setData("text", event.target.id);
+        event.dataTransfer.setData("parent", disksUI.parent);
     }
-
-    const isDraggable = () => {
-        
-    }
-
 
     return (
         <div
@@ -17,7 +12,7 @@ const Disks = ({ index, disksUI }) => {
             backgroundColor: disksUI.color,
             width: `${disksUI.size}px`,
         }}
-        id={index} className="disk" onDragStart={handleDragStart} draggable="true">{disksUI.num}</div>
+        id={disksUI.id} className="disk" onDragStart={handleDragStart} draggable="true">{disksUI.num}</div>
     );
 }
 
