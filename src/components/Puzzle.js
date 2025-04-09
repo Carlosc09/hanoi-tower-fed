@@ -3,8 +3,7 @@ import Tower from "./Tower";
 import useTowerContext from "../hooks/use-puzzle-context";
 
 const Puzzle = () => {
-    const [moves, setMoves] = useState(0);
-    const { towers } = useTowerContext();
+    const { towers, moves } = useTowerContext();
 
     return (
         <div className="box">
