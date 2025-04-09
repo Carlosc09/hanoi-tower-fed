@@ -9,6 +9,8 @@ const Provider = ({ children }) => {
     const [disksUI, setDisksUI] = useState([]);
     const [moves, setMoves] = useState(0);
     const [winner, setWinner] = useState(false);
+    const [solution, setSolution] = useState([]);
+
 
     const setTowerAndDisks = (diskCount) => {
         diskCount = parseInt(diskCount);
@@ -79,10 +81,14 @@ const Provider = ({ children }) => {
         disksUI,
         moves,
         winner,
+        solution,
+        setMoves,
+        setSolution,
         reset,
         setTowerAndDisks,
         validateMove,
-        validatePuzzleDone
+        validatePuzzleDone,
+        moveDisk
     };
 
     return (
